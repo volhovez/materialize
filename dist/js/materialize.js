@@ -1,5 +1,5 @@
 /*!
- * Materialize v0.97.8 (http://materializecss.com)
+ * Materialize vundefined (http://materializecss.com)
  * Copyright 2014-2015 Materialize
  * MIT License (https://raw.githubusercontent.com/Dogfalo/materialize/master/LICENSE)
  */
@@ -4959,7 +4959,7 @@ function PickerConstructor( ELEMENT, NAME, COMPONENT, OPTIONS ) {
                         // * In Firefox stopPropagation() doesn’t prevent right-click events from bubbling,
                         //   which causes the picker to unexpectedly close when right-clicking it. So make
                         //   sure the event wasn’t a right-click.
-                        if ( target != ELEMENT && target != document && event.which != 3 ) {
+                        if ( target != ELEMENT && !isChild(ELEMENT,target) && target != document && event.which != 3 ) {
 
                             // If the target was the holder that covers the screen,
                             // keep the element focused to maintain tabindex.
@@ -5242,7 +5242,15 @@ function PickerConstructor( ELEMENT, NAME, COMPONENT, OPTIONS ) {
             } //trigger
         } //PickerInstance.prototype
 
-
+    function isChild(obj, parentObj) {
+        while (obj != undefined && obj != null && obj.tagName.toUpperCase() != 'BODY') {
+            if (obj == parentObj) {
+                return true;
+            }
+            obj = obj.parentNode;
+        }
+        return false;
+    }
     /**
      * Wrap the picker holder components together.
      */
